@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Research — Agentic AI Landscape 2025-2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a { color: #58a6ff; text-decoration: none; transition: color 0.15s ease; }
+  a:hover { color: #79c0ff; text-decoration: underline; }
+
+  /* Header */
+  .hero {
+    text-align: center;
+    padding: 4rem 1.5rem 3rem;
+    border-bottom: 1px solid #21262d;
+    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #e6edf3;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 span { color: #58a6ff; }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: #8b949e;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .btn-primary {
+    background: #238636;
+    color: #fff !important;
+    border: 1px solid #2ea043;
+  }
+  .btn-primary:hover { background: #2ea043; text-decoration: none; }
+  .btn-secondary {
+    background: #21262d;
+    color: #c9d1d9 !important;
+    border: 1px solid #30363d;
+  }
+  .btn-secondary:hover { background: #30363d; text-decoration: none; }
+
+  /* Main content */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .section-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #e6edf3;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #21262d;
+  }
+
+  /* Category cards */
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.15s ease;
+  }
+  .card:hover { border-color: #30363d; }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #e6edf3;
+    margin-bottom: 0.15rem;
+  }
+  .card-count {
+    font-size: 0.8rem;
+    color: #8b949e;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .card-links a {
+    display: inline-block;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.85rem;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 5px;
+    color: #58a6ff;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .card-links a:hover {
+    background: #1c2534;
+    border-color: #388bfd;
+    text-decoration: none;
+  }
+
+  /* Color accents per category */
+  .card[data-cat="platforms"]  { border-left: 3px solid #a371f7; }
+  .card[data-cat="coding"]    { border-left: 3px solid #3fb950; }
+  .card[data-cat="enterprise"]{ border-left: 3px solid #58a6ff; }
+  .card[data-cat="infra"]     { border-left: 3px solid #f0883e; }
+  .card[data-cat="voice"]     { border-left: 3px solid #d2a8ff; }
+  .card[data-cat="vertical"]  { border-left: 3px solid #39d353; }
+  .card[data-cat="creative"]  { border-left: 3px solid #f778ba; }
+
+  /* Full library */
+  .library-section {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
+  .library-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .library-grid a {
+    display: inline-block;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.8rem;
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 4px;
+    color: #8b949e;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .library-grid a:hover {
+    color: #58a6ff;
+    border-color: #30363d;
+    background: #1c2534;
+    text-decoration: none;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid #21262d;
+    color: #484f58;
+    font-size: 0.85rem;
+  }
+  footer a { color: #58a6ff; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 1.7rem; }
+    .categories { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<header class="hero">
+  <h1>AI Research — <span>Agentic AI Landscape 2025-2026</span></h1>
+  <p class="subtitle">160+ company profiles analyzing the agentic AI market</p>
+  <div class="hero-links">
+    <a href="analysis/agentic_ai_trend_report.md" class="btn-primary">Trend Analysis Report</a>
+    <a href="RESEARCH_PLAN.md" class="btn-secondary">Research Plan</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- New Batch: 50 Agentic AI Companies -->
+  <h2 class="section-heading">50 New Agentic AI Companies</h2>
+
+  <div class="categories">
+
+    <!-- Agentic Platforms -->
+    <div class="card" data-cat="platforms">
+      <div class="card-title">Agentic Platforms</div>
+      <div class="card-count">8 companies</div>
+      <div class="card-links">
+        <a href="research/crewai.md">CrewAI</a>
+        <a href="research/langchain.md">LangChain</a>
+        <a href="research/lindy_ai.md">Lindy AI</a>
+        <a href="research/relevance_ai.md">Relevance AI</a>
+        <a href="research/agno.md">Agno</a>
+        <a href="research/dust.md">Dust</a>
+        <a href="research/wordware.md">Wordware</a>
+        <a href="research/wonderful_ai.md">Wonderful AI</a>
+      </div>
+    </div>
+
+    <!-- AI Coding Agents -->
+    <div class="card" data-cat="coding">
+      <div class="card-title">AI Coding Agents</div>
+      <div class="card-count">6 companies</div>
+      <div class="card-links">
+        <a href="research/cognition_ai.md">Cognition AI</a>
+        <a href="research/replit.md">Replit</a>
+        <a href="research/tabnine.md">Tabnine</a>
+        <a href="research/augment_code.md">Augment Code</a>
+        <a href="research/poolside_ai.md">Poolside AI</a>
+        <a href="research/sourcegraph.md">Sourcegraph</a>
+      </div>
+    </div>
+
+    <!-- Enterprise AI Agents -->
+    <div class="card" data-cat="enterprise">
+      <div class="card-title">Enterprise AI Agents</div>
+      <div class="card-count">10 companies</div>
+      <div class="card-links">
+        <a href="research/sierra_ai.md">Sierra AI</a>
+        <a href="research/glean.md">Glean</a>
+        <a href="research/decagon.md">Decagon</a>
+        <a href="research/ema.md">Ema</a>
+        <a href="research/cresta.md">Cresta</a>
+        <a href="research/eliseai.md">EliseAI</a>
+        <a href="research/moveworks.md">Moveworks</a>
+        <a href="research/cohere.md">Cohere</a>
+        <a href="research/mistral_ai.md">Mistral AI</a>
+        <a href="research/writer.md">Writer</a>
+      </div>
+    </div>
+
+    <!-- AI Infrastructure -->
+    <div class="card" data-cat="infra">
+      <div class="card-title">AI Infrastructure</div>
+      <div class="card-count">7 companies</div>
+      <div class="card-links">
+        <a href="research/groq.md">Groq</a>
+        <a href="research/together_ai.md">Together AI</a>
+        <a href="research/baseten.md">Baseten</a>
+        <a href="research/fireworks_ai.md">Fireworks AI</a>
+        <a href="research/modal_labs.md">Modal Labs</a>
+        <a href="research/cerebras_systems.md">Cerebras Systems</a>
+        <a href="research/hiddenlayer.md">HiddenLayer</a>
+      </div>
+    </div>
+
+    <!-- Voice AI -->
+    <div class="card" data-cat="voice">
+      <div class="card-title">Voice AI</div>
+      <div class="card-count">3 companies</div>
+      <div class="card-links">
+        <a href="research/bland_ai.md">Bland AI</a>
+        <a href="research/vapi.md">Vapi</a>
+        <a href="research/retell_ai.md">Retell AI</a>
+      </div>
+    </div>
+
+    <!-- Vertical AI -->
+    <div class="card" data-cat="vertical">
+      <div class="card-title">Vertical AI</div>
+      <div class="card-count">10 companies</div>
+      <div class="card-links">
+        <a href="research/harvey_ai.md">Harvey AI</a>
+        <a href="research/hebbia.md">Hebbia</a>
+        <a href="research/ambience_healthcare.md">Ambience Healthcare</a>
+        <a href="research/corti.md">Corti</a>
+        <a href="research/hippocratic_ai.md">Hippocratic AI</a>
+        <a href="research/zest_ai.md">Zest AI</a>
+        <a href="research/eightfold_ai.md">Eightfold AI</a>
+        <a href="research/betterup.md">BetterUp</a>
+        <a href="research/tidalwave.md">Tidalwave</a>
+        <a href="research/greylabs_ai.md">Greylabs AI</a>
+      </div>
+    </div>
+
+    <!-- Creative & Consumer AI -->
+    <div class="card" data-cat="creative">
+      <div class="card-title">Creative &amp; Consumer AI</div>
+      <div class="card-count">8 companies</div>
+      <div class="card-links">
+        <a href="research/wondercraft.md">Wondercraft</a>
+        <a href="research/ideogram.md">Ideogram</a>
+        <a href="research/project_prometheus.md">Project Prometheus</a>
+        <a href="research/anima_ai.md">Anima</a>
+        <a href="research/chronicle_ai.md">Chronicle</a>
+        <a href="research/11x_ai.md">11x.ai</a>
+        <a href="research/adept_ai.md">Adept AI</a>
+        <a href="research/rabbit_r1.md">Rabbit r1</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Full Research Library -->
+  <div class="library-section">
+    <h2 class="section-heading">Full Research Library (110+ profiles)</h2>
+    <div class="library-grid">
+      <a href="research/aaru.md">Aaru</a>
+      <a href="research/arcads.md">Arcads</a>
+      <a href="research/beautycam.md">BeautyCam</a>
+      <a href="research/beautyplus.md">BeautyPlus</a>
+      <a href="research/bolt_new.md">Bolt New</a>
+      <a href="research/brainly.md">Brainly</a>
+      <a href="research/candy_ai.md">Candy AI</a>
+      <a href="research/canva.md">Canva</a>
+      <a href="research/chai_discovery.md">Chai Discovery</a>
+      <a href="research/character_ai.md">Character AI</a>
+      <a href="research/cici.md">Cici</a>
+      <a href="research/cluely.md">Cluely</a>
+      <a href="research/combinely.md">Combinely</a>
+      <a href="research/crosby.md">Crosby</a>
+      <a href="research/crushon_ai.md">CrushOn AI</a>
+      <a href="research/cursor.md">Cursor</a>
+      <a href="research/customer_io.md">Customer.io</a>
+      <a href="research/cutout_pro.md">Cutout Pro</a>
+      <a href="research/deepai.md">DeepAI</a>
+      <a href="research/delve.md">Delve</a>
+      <a href="research/doubao.md">Doubao</a>
+      <a href="research/elevenlabs.md">ElevenLabs</a>
+      <a href="research/emergent.md">Emergent</a>
+      <a href="research/epik.md">Epik</a>
+      <a href="research/fabric_health.md">Fabric Health</a>
+      <a href="research/faceapp.md">FaceApp</a>
+      <a href="research/facemoji.md">Facemoji</a>
+      <a href="research/fathom_ai.md">Fathom AI</a>
+      <a href="research/filmora.md">Filmora</a>
+      <a href="research/fyxer_ai.md">Fyxer AI</a>
+      <a href="research/gauth.md">Gauth</a>
+      <a href="research/goblin_tools.md">Goblin Tools</a>
+      <a href="research/google_ai_studio.md">Google AI Studio</a>
+      <a href="research/google_gemini.md">Google Gemini</a>
+      <a href="research/google_labs.md">Google Labs</a>
+      <a href="research/grok_xai.md">Grok (xAI)</a>
+      <a href="research/happyscribe.md">HappyScribe</a>
+      <a href="research/harmonic.md">Harmonic</a>
+      <a href="research/harvey_ai.md">Harvey AI</a>
+      <a href="research/heygen.md">HeyGen</a>
+      <a href="research/hippocratic_ai.md">Hippocratic AI</a>
+      <a href="research/hitranslate.md">HiTranslate</a>
+      <a href="research/hypic.md">Hypic</a>
+      <a href="research/instagram_edits.md">Instagram Edits</a>
+      <a href="research/janitorai.md">JanitorAI</a>
+      <a href="research/joi.md">Joi</a>
+      <a href="research/juicychat.md">JuicyChat</a>
+      <a href="research/klingai.md">KlingAI</a>
+      <a href="research/lemon_slice.md">Lemon Slice</a>
+      <a href="research/leonardo_ai.md">Leonardo AI</a>
+      <a href="research/lila_sciences.md">Lila Sciences</a>
+      <a href="research/lmarena.md">LMArena</a>
+      <a href="research/lorikeet.md">Lorikeet</a>
+      <a href="research/lovable.md">Lovable</a>
+      <a href="research/luma_ai.md">Luma AI</a>
+      <a href="research/manus.md">Manus</a>
+      <a href="research/meitu.md">Meitu</a>
+      <a href="research/mercor.md">Mercor</a>
+      <a href="research/merlin.md">Merlin</a>
+      <a href="research/microsoft_bing.md">Microsoft Bing</a>
+      <a href="research/microsoft_copilot.md">Microsoft Copilot</a>
+      <a href="research/microsoft_edge.md">Microsoft Edge</a>
+      <a href="research/midjourney.md">Midjourney</a>
+      <a href="research/mivi.md">Mivi</a>
+      <a href="research/monica.md">Monica</a>
+      <a href="research/notion.md">Notion</a>
+      <a href="research/nova.md">Nova</a>
+      <a href="research/openai_chatgpt.md">OpenAI ChatGPT</a>
+      <a href="research/openevidence.md">OpenEvidence</a>
+      <a href="research/ourdream_ai.md">OurDream AI</a>
+      <a href="research/papago.md">Papago</a>
+      <a href="research/peachy.md">Peachy</a>
+      <a href="research/perplexity.md">Perplexity</a>
+      <a href="research/photomath.md">Photomath</a>
+      <a href="research/photoshop_express.md">Photoshop Express</a>
+      <a href="research/picturethis.md">PictureThis</a>
+      <a href="research/pika_labs.md">Pika Labs</a>
+      <a href="research/pixelcut.md">Pixelcut</a>
+      <a href="research/pixverse.md">PixVerse</a>
+      <a href="research/plantnet.md">PlantNet</a>
+      <a href="research/polish.md">Polish</a>
+      <a href="research/polybuzz.md">PolyBuzz</a>
+      <a href="research/qanda.md">Qanda</a>
+      <a href="research/quark.md">Quark</a>
+      <a href="research/qwen.md">Qwen</a>
+      <a href="research/rabbit_r1.md">Rabbit r1</a>
+      <a href="research/reflection_ai.md">Reflection AI</a>
+      <a href="research/remaker.md">Remaker</a>
+      <a href="research/remini.md">Remini</a>
+      <a href="research/runway.md">Runway</a>
+      <a href="research/safe_superintelligence.md">Safe Superintelligence</a>
+      <a href="research/scale_ai.md">Scale AI</a>
+      <a href="research/seaart.md">SeaArt</a>
+      <a href="research/serval.md">Serval</a>
+      <a href="research/sesame_ai.md">Sesame AI</a>
+      <a href="research/snow_corp.md">Snow Corp</a>
+      <a href="research/solve_intelligence.md">Solve Intelligence</a>
+      <a href="research/spicychat.md">SpicyChat</a>
+      <a href="research/suno.md">Suno</a>
+      <a href="research/swiftkey.md">SwiftKey</a>
+      <a href="research/synthesia.md">Synthesia</a>
+      <a href="research/thinking_machines_lab.md">Thinking Machines Lab</a>
+      <a href="research/turboscribe.md">TurboScribe</a>
+      <a href="research/unconventional_ai.md">Unconventional AI</a>
+      <a href="research/upfoto.md">Upfoto</a>
+      <a href="research/v0_vercel.md">v0 (Vercel)</a>
+      <a href="research/vivacut.md">VivaCut</a>
+      <a href="research/windsurf_codeium.md">Windsurf (Codeium)</a>
+      <a href="research/wink.md">Wink</a>
+      <a href="research/youcut.md">YouCut</a>
+      <a href="research/zerogpt.md">ZeroGPT</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Generated February 2026 &middot; 160+ AI company profiles &middot;
+  <a href="https://github.com/ckz/ai-research">GitHub Repository</a>
+</footer>
+
+</body>
+</html>
