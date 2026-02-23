@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Research — Viewer</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .topbar a {
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .topbar a:hover { color: #79c0ff; text-decoration: underline; }
+  .topbar .filename {
+    color: #8b949e;
+    font-size: 0.85rem;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    margin-left: auto;
+  }
+
+  /* Loading state */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    color: #8b949e;
+    font-size: 1.1rem;
+  }
+  .error {
+    color: #f85149;
+    text-align: center;
+    padding: 4rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  /* Markdown content area */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  /* ---- GitHub-style markdown rendering ---- */
+  .content h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e6edf3;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #21262d;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+  .content h1:first-child { margin-top: 0; }
+
+  .content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #e6edf3;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid #21262d;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .content h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e6edf3;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e6edf3;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .content p {
+    margin-bottom: 1rem;
+    color: #c9d1d9;
+  }
+
+  .content a { color: #58a6ff; text-decoration: none; }
+  .content a:hover { text-decoration: underline; }
+
+  .content strong { color: #e6edf3; font-weight: 600; }
+  .content em { font-style: italic; }
+
+  .content ul, .content ol {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  .content li {
+    margin-bottom: 0.3rem;
+  }
+  .content li > ul, .content li > ol {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+  }
+
+  .content blockquote {
+    border-left: 3px solid #3b434b;
+    padding: 0.5rem 1rem;
+    margin: 0 0 1rem 0;
+    color: #8b949e;
+    background: #161b22;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .content hr {
+    border: none;
+    border-top: 1px solid #21262d;
+    margin: 2rem 0;
+  }
+
+  .content code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    background: #1c2333;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.88em;
+    color: #e6edf3;
+  }
+
+  .content pre {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  .content pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* Tables */
+  .content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .content thead {
+    background: #161b22;
+  }
+  .content th {
+    font-weight: 600;
+    color: #e6edf3;
+    text-align: left;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #21262d;
+    white-space: nowrap;
+  }
+  .content td {
+    padding: 0.5rem 0.9rem;
+    border: 1px solid #21262d;
+    color: #c9d1d9;
+  }
+  .content tbody tr:nth-child(even) {
+    background: #0d1117;
+  }
+  .content tbody tr:nth-child(odd) {
+    background: #161b22;
+  }
+  .content tbody tr:hover {
+    background: #1c2534;
+  }
+
+  /* Images */
+  .content img {
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid #21262d;
+    margin: 0.5rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .content { padding: 1.5rem 1rem 3rem; }
+    .content h1 { font-size: 1.6rem; }
+    .content h2 { font-size: 1.3rem; }
+    .topbar .filename { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html">&larr; Back to Index</a>
+  <span class="filename" id="filepath"></span>
+</div>
+
+<div id="app">
+  <div class="loading">Loading&hellip;</div>
+</div>
+
+<script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const file = params.get('file');
+  const app = document.getElementById('app');
+  const filepathEl = document.getElementById('filepath');
+
+  if (!file) {
+    app.innerHTML = '<div class="error">No file specified. <a href="index.html">Return to index</a>.</div>';
+    return;
+  }
+
+  filepathEl.textContent = file;
+
+  // Set page title from filename
+  const name = file.split('/').pop().replace('.md', '').replace(/_/g, ' ');
+  document.title = name.charAt(0).toUpperCase() + name.slice(1) + ' — AI Research';
+
+  fetch(file)
+    .then(function(res) {
+      if (!res.ok) throw new Error('File not found (HTTP ' + res.status + ')');
+      return res.text();
+    })
+    .then(function(md) {
+      app.innerHTML = '<div class="content">' + marked.parse(md) + '</div>';
+      // Make external links open in new tab
+      var links = app.querySelectorAll('a[href^="http"]');
+      for (var i = 0; i < links.length; i++) {
+        links[i].setAttribute('target', '_blank');
+        links[i].setAttribute('rel', 'noopener noreferrer');
+      }
+    })
+    .catch(function(err) {
+      app.innerHTML = '<div class="error">' + err.message + '<br><a href="index.html">Return to index</a></div>';
+    });
+})();
+</script>
+
+</body>
+</html>
