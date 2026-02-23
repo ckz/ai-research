@@ -1,0 +1,37 @@
+# Environment variables and credentials
+.env
+.env.*
+.env.local
+.env.production
+.env.staging
+
+# Vault / secrets
+.vault/
+*.key
+*.pem
+*.p12
+
+# OS artifacts
+__MACOSX/
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node (for Vercel deployment)
+node_modules/
+.next/
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
+out/
